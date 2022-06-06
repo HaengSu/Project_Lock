@@ -1,5 +1,8 @@
 package com.example.project_lock
 
+import android.app.ActivityManager
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -10,9 +13,11 @@ import com.example.project_lock.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-    private lateinit var decorView : View
-    private var uiOption : Int = 0
+    private val TAG: String = "로그"
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var decorView: View
+    private var uiOption: Int = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,18 +36,33 @@ class MainActivity : AppCompatActivity() {
         decorView.setSystemUiVisibility(uiOption)
 
         binding.imLocker.setOnClickListener { v ->
-            binding.imLocker.isSelected = !binding.imLocker.isSelected
+
+            if (binding.imLocker.isSelected) {
+                binding.imLocker.isSelected = !binding.imLocker.isSelected
+            } else {
+                binding.imLocker.isSelected = !binding.imLocker.isSelected
+                packageManager.clearPackagePreferredActivities(packageName)
+            }
         }
     }
 
+        override fun onPause() {
+        super.onPause()
+        val activity : ActivityManager = applicationContext.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        activity.moveTaskToFront(taskId,0)
+    }
+
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        Log.i(TAG, "onKeyDown: keyCode = ${keyCode}")
         when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {
-                Log.i(TAG, "onKeyDown: 취소키가 눌림")
+                Log.i(TAG, "onKeyDown: 취소키 눌림")
+                return false
             }
         }
         return super.onKeyDown(keyCode, event)
     }
+
 }
 
 
