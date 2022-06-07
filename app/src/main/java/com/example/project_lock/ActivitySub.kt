@@ -16,16 +16,14 @@ class ActivitySub : AppCompatActivity(){
         setContentView(binding.root)
         packageManager.clearPackagePreferredActivities(packageName)
 
-//        val intent = Intent()
-//        intent.action = Intent.ACTION_MAIN
-//        intent.addCategory(Intent.CATEGORY_HOME)
-//        startActivity(intent)
+        val intent = Intent()
+        intent.action = Intent.ACTION_MAIN
+        intent.addCategory(Intent.CATEGORY_HOME)
+        startActivity(intent)
     }
 
     override fun onPause() {
         super.onPause()
         packageManager.clearPackagePreferredActivities(packageName)
-
-        Log.i(TAG, "onPause: test second")
     }
 }

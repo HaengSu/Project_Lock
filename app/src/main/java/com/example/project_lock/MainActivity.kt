@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.i(TAG, "onCreate: 진입")
 
         decorView = window.decorView
         uiOption = window.decorView.systemUiVisibility
@@ -42,7 +41,6 @@ class MainActivity : AppCompatActivity() {
             if (binding.imLocker.isSelected) {
                 binding.imLocker.isSelected = !binding.imLocker.isSelected
             } else {
-                Log.i(TAG, "onCreate: test")
                 binding.imLocker.isSelected = !binding.imLocker.isSelected
                 val i = Intent(this, ActivitySub::class.java)
                 startActivity(i)
