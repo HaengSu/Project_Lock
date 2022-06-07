@@ -6,7 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.example.project_lock.databinding.ActivitySubBinding
 
-
+//t
 class ActivitySub : AppCompatActivity(){
     private val TAG = "로그"
     private lateinit var binding : ActivitySubBinding
