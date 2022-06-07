@@ -4,26 +4,28 @@
     package="com.example.project_lock">
 
     <uses-permission android:name="android.permission.REORDER_TASKS" />
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.SET_PREFERRED_APPLICATIONS"
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission
+        android:name="android.permission.SET_PREFERRED_APPLICATIONS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
+
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:excludeFromRecents="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:launchMode="singleTask"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project_Lock"
-        tools:targetApi="31"
-        android:clearTaskOnLaunch="true"
-        android:excludeFromRecents="true"
-        android:launchMode="singleTask"
-        android:screenOrientation="portrait"
-        android:stateNotNeeded="true">
+        tools:targetApi="31">
+        <!--        android:clearTaskOnLaunch="true"-->
+        <!--        android:stateNotNeeded="true"-->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -32,9 +34,11 @@
 
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ActivitySub"
+            android:exported="false"/>
     </application>
 
 </manifest>

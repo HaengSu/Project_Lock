@@ -10,6 +10,7 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.project_lock.databinding.ActivityMainBinding
+import javax.security.auth.login.LoginException
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.i(TAG, "onCreate: 진입")
 
         decorView = window.decorView
         uiOption = window.decorView.systemUiVisibility
@@ -40,9 +42,23 @@ class MainActivity : AppCompatActivity() {
             if (binding.imLocker.isSelected) {
                 binding.imLocker.isSelected = !binding.imLocker.isSelected
             } else {
+                Log.i(TAG, "onCreate: test")
                 binding.imLocker.isSelected = !binding.imLocker.isSelected
-                packageManager.clearPackagePreferredActivities(packageName)
+                val i = Intent(this, ActivitySub::class.java)
+                startActivity(i)
+                finish()
             }
+        }
+    }
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            window.decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
         }
     }
 
@@ -53,16 +69,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        Log.i(TAG, "onKeyDown: keyCode = ${keyCode}")
         when (keyCode) {
             KeyEvent.KEYCODE_BACK -> {
-                Log.i(TAG, "onKeyDown: 취소키 눌림")
                 return false
             }
         }
         return super.onKeyDown(keyCode, event)
     }
 
+    override fun onStop() {
+        super.onStop()
+    }
 }
 
 
